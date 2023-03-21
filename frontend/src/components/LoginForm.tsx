@@ -1,24 +1,29 @@
 
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import Particles from "react-particles";
 import { useCallback } from 'react';
 import { loadFull } from "tsparticles";
 import { useLocation } from "wouter";
+import { Engine } from "tsparticles-engine";
 
 
 
 export default function LoginForm() {
     const [, setLocation] = useLocation();
-    const {register,handleSubmit} = useForm();
-    const onSubmit = (data) => {
-        localStorage.setItem('nickname', data.nickname);
-        setLocation("/chat")
+    const { register, handleSubmit } = useForm<FormValues>();
+    type FormValues = {
+        nickname: string;
     };
-    const particlesInit = useCallback(async engine => {
+    const onSubmit: SubmitHandler<FormValues> = (data) => {
+        const nickname = data.nickname;
+        localStorage.setItem("nickname", nickname);
+        setLocation("/chat");
+    };
+    const particlesInit = useCallback(async (engine: Engine) => {
         await loadFull(engine);
     }, []);
 
-    const particlesLoaded = useCallback(async container => {
+    const particlesLoaded = useCallback(async (container: any) => {
         await console.log(container);
     }, []);
     

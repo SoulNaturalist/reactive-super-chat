@@ -16,7 +16,7 @@ export default function Chat() {
     });
   }, [])
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: { key: string; }) => {
     if (event.key === 'Enter') {
       handleSubmit();
     }
