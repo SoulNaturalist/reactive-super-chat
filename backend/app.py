@@ -7,7 +7,6 @@ app.config['SECRET_KEY'] = 'secret!'
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
 
-
 active_connections = {}
 
 @socketio.on('connect')
@@ -23,8 +22,6 @@ def on_request_data(data):
     data = {'count': len(active_connections)}
     socketio.emit('request_data', data)
     
-
-
 @socketio.on('disconnect')
 def on_disconnect():
     print(f"Disconnect event received for sid {request.sid}")
