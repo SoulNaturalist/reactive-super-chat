@@ -131,3 +131,8 @@ button {
   position: relative;
   top:40px;
 }
+
+.message_paragraph {
+  position: relative;
+  top:80px;
+}

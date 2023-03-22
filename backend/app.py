@@ -9,11 +9,13 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 active_connections = {}
 
+messages = []
+
 @socketio.on('connect')
 def on_connect():
     data = {'count': len(active_connections)}
     socketio.emit('request_data', data)
-    print(active_connections)
+    socketio.emit('new_nessage', messages)
 
 @socketio.on('request_data')
 def on_request_data(data):
@@ -21,6 +23,11 @@ def on_request_data(data):
         active_connections[data["nickname"]] = request.sid
     data = {'count': len(active_connections)}
     socketio.emit('request_data', data)
+
+@socketio.on('new_message')
+def on_message(data):
+    messages.append({'nickname': data['nickname'], 'message': data['message']})
+    socketio.emit('new_message', messages)
     
 
 @socketio.on('disconnect')
