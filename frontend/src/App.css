@@ -1,3 +1,8 @@
+* {
+  margin:0px;
+  padding:0px;
+}
+
 body {
   background: #0e101c;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -119,20 +124,49 @@ button {
   border-radius: 4px;
 }
 
-.input_chat {
-  width: 30%;
-  display: block;
-  margin: 0px auto;
-  position: relative;
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.input_chat {
+  width: 30%;
+  margin: 0px auto;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+}
+
+::-webkit-input-placeholder {
+  color: #000000;
+}
+
+
+
 .users_paragraph {
+  text-align: center;
   color:white;
   position: relative;
-  top:40px;
+  top:800px;
+}
+
+.message_card {
+  display:flex;
+  justify-content: center;
+  position: relative;
+  top:10px;
+  background-color: #35487a;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom:1px;
+  margin-left:10px;
+  margin-right:10px;
+  
 }
 
 .message_paragraph {
-  position: relative;
-  top:80px;
+  color:white;
 }

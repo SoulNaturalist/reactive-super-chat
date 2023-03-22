@@ -1,9 +1,10 @@
+import Alert from '@mui/material/Alert';
 import { useState, useEffect, useRef } from 'react';
 import socketIOClient from "socket.io-client";
 
 
 export default function Chat() {
-  const [inputValue, setInputValue] = useState("Сообщение");
+  const [inputValue, setInputValue] = useState("");
   const [countData, setCount] = useState("");
   const [messages, setMessages] = useState<{ id: number, nickname: string; message: string }[]>([]);
   const nextId = useRef(1);
@@ -23,7 +24,6 @@ export default function Chat() {
       console.log("added message");
       setMessages(data);
     });
-  
     socket.on("disconnect", () => {
       console.log("Disconnected");
       socket.disconnect();
@@ -53,31 +53,39 @@ export default function Chat() {
 
   const messagesComponent = messages.map((message) => {
     return (
-      <div key={message.id}>
+      <div key={message.id} className="message_card">
         <p className="message_paragraph">{message.nickname}: {message.message}</p>
       </div>
     );
   });
 
   const chatComponent = () => {
-    return (
-      <div>
-        <input className="input_chat" type="text" value={inputValue} onChange={(event) => setInputValue(event.target.value)} onKeyDown={handleKeyDown}/>
-        <p className="users_paragraph">Пользователей на сайте - {countData}</p>
-      </div>
-    );
+    if (!localStorage.hasOwnProperty('nickname') || localStorage.length === 0) {
+      return (
+        <div>
+          <input className="input_chat" type="text" placeholder="Сообщение" disabled/>
+          <p className="users_paragraph">Пользователей на сайте - {countData}</p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <input className="input_chat" type="text" placeholder="Сообщение" onChange={(event) => setInputValue(event.target.value)} onKeyDown={handleKeyDown}/>
+          <p className="users_paragraph">Пользователей на сайте - {countData}</p>
+        </div>
+      );
+
+    }
   };
   const checkNameEmpty = () => {
-    if (!localStorage.hasOwnProperty('nickname')) {
-      return <div>
-        <p className="message_paragraph">Вы не ввели никнейм!</p>
-      </div>
+    if (!localStorage.hasOwnProperty('nickname') || localStorage.length === 0) {
+      return <Alert variant="outlined" severity="error">Вы не ввели никнейм!</Alert>
     }
 
   }
-  return <div>
-    {checkNameEmpty()}
-    {checkNameEmpty() ? null:chatComponent()}
+  return <div className='container'>
     {messagesComponent}
+    {checkNameEmpty()}
+    {chatComponent()}
   </div>
 }
