@@ -10,11 +10,15 @@ export default function Chat() {
     const socket = socketIOClient("http://127.0.0.1:5000");
     socket.on("connect", () => console.log("Connected"));
     socket.emit("request_data", {nickname:localStorage.getItem("nickname")});
-    socket.on("disconnect", () => socket.disconnect());
     socket.on("request_data", (data) => { 
       setCount(data.count);
     });
-  }, [])
+    socket.on('disconnect', () => {
+      console.log("Disconnected");
+      socket.disconnect();
+      
+    });
+  });
 
   const handleKeyDown = (event: { key: string; }) => {
     if (event.key === 'Enter') {

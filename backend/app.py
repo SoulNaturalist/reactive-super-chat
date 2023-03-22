@@ -18,15 +18,18 @@ def on_connect():
 @socketio.on('request_data')
 def on_request_data(data):
     if data["nickname"] not in active_connections.keys():
-        active_connections[data["nickname"]] = True
+        active_connections[data["nickname"]] = request.sid
     data = {'count': len(active_connections)}
     socketio.emit('request_data', data)
     
+
 @socketio.on('disconnect')
 def on_disconnect():
     print(f"Disconnect event received for sid {request.sid}")
-    if request.sid in active_connections:
-        del active_connections[request.sid]
+    for nickname, sid in active_connections.items():
+        if sid == request.sid:
+            del active_connections[nickname]
+            break
     data = {'count': len(active_connections)}
     socketio.emit('request_data', data)
 
