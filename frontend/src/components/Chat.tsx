@@ -1,6 +1,8 @@
 import Alert from '@mui/material/Alert';
 import { useState, useEffect, useRef } from 'react';
 import socketIOClient from "socket.io-client";
+const soundAlert = require("../sounds/alert.mp3");
+// declaring an mp3 file did not help, I solve the problem as best I can :)
 
 
 export default function Chat() {
@@ -9,9 +11,12 @@ export default function Chat() {
   const [messages, setMessages] = useState<{ id: number, nickname: string; message: string }[]>([]);
   const nextId = useRef(1);
 
+
   useEffect(() => {
     const socket = socketIOClient("http://127.0.0.1:5000");
     socket.on("connect", () => {
+      const audio = new Audio(soundAlert);
+      audio.play();
       console.log("Connected")
     });
   
