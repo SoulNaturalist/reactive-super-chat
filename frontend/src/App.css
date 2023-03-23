@@ -125,11 +125,6 @@ button {
 }
 
 
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 .input_chat {
   width: 30%;
@@ -138,7 +133,6 @@ button {
   top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
 }
 
 ::-webkit-input-placeholder {
@@ -150,21 +144,24 @@ button {
 .users_paragraph {
   text-align: center;
   color:white;
-  position: relative;
-  top:800px;
+  position: absolute;;
+  top:83%;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
 }
 
 .message_card {
-  display:flex;
-  justify-content: center;
   position: relative;
   top:10px;
-  background-color: #35487a;
+  display: block;
+  margin:0 auto;
+  padding: 7px 10px;
+  margin-bottom:3px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin-bottom:1px;
-  margin-left:10px;
-  margin-right:10px;
-  
+  border-radius: 5px;
 }
 
 .message_paragraph {
