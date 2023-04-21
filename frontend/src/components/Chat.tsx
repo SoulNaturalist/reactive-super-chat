@@ -69,7 +69,7 @@ export default function Chat() {
     }
   };
 
-  const messagesComponent = messages.map((message, index) => {
+  const messagesComponent = messages.slice(-18).map((message, index) => {
     return (
       <div key={message.id} className="message_card" style={index % 2 === 0 && index !== 0 ? {'backgroundColor': '#35487a'}:{'backgroundColor': '#2f406d'}} 
       ref={scrollDivRef}>
