@@ -49,6 +49,22 @@ export default function Chat() {
     }
   };
 
+  const settingThemeChat = () => {
+    const themeChat = localStorage.getItem("theme");
+    if (themeChat) {
+      if (themeChat === "theme_card_dark") {
+        return {'backgroundColor': '#000000','backgroundColor2': '#050505'}
+
+      } else if (themeChat === "theme_card_light") {
+        return {'backgroundColor': '#ffffff','backgroundColor2': '#e6e6e6'}
+
+      } else {
+        return {'backgroundColor': '#35487a','backgroundColor2': '#2f406d'}
+      }
+    }
+    return {'backgroundColor': '#35487a','backgroundColor2': '#2f406d'}
+  }
+
   const handleSubmit = () => {
     const socket = socketIOClient("http://127.0.0.1:5000");
     const nickname = localStorage.getItem("nickname") || '{}';
@@ -60,9 +76,9 @@ export default function Chat() {
   
   const messagesComponent = messages.slice(-18).map((message, index) => {
     return (
-      <div key={message.id} className="message_card" style={index % 2 === 0 && index !== 0 ? {'backgroundColor': '#35487a'}:{'backgroundColor': '#2f406d'}} 
-      ref={scrollDivRef}>
-        <p className="message_paragraph">{message.nickname}: {message.message}</p>
+      <div key={message.id} className="message_card" style={index % 2 === 0 && index !== 0 ? 
+      {'backgroundColor': settingThemeChat()['backgroundColor']}:{'backgroundColor': settingThemeChat()['backgroundColor2']}} ref={scrollDivRef}>
+        <p className="message_paragraph" style={settingThemeChat()['backgroundColor'] === '#ffffff' ? {"color":"black"}:{}}>{message.nickname}: {message.message}</p>
       </div>
     );
   });

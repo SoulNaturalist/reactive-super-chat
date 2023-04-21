@@ -23,10 +23,6 @@ export default function LoginForm() {
         await loadFull(engine);
     }, []);
 
-    const particlesLoaded = useCallback(async (container: any) => {
-        await console.log(container);
-    }, []);
-    
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -36,7 +32,6 @@ export default function LoginForm() {
             <Particles
             id="tsparticles"
             init={particlesInit}
-            loaded={particlesLoaded}
             options={{
                 fpsLimit: 120,
                 interactivity: {
