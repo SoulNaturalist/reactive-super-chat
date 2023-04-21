@@ -8,11 +8,9 @@ const soundAlert = require("../sounds/alert.mp3");
 export default function Chat() {
   const [inputValue, setInputValue] = useState("");
   const [countData, setCount] = useState("");
-  const [scrollPosition, setScrollPosition] = useState(0);
   const scrollDivRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<{ id: number, nickname: string; message: string }[]>([]);
   const nextId = useRef(1);
-  const [scrollStop, setScrollStop] = useState(false);
 
 
   useEffect(() => {
@@ -60,15 +58,6 @@ export default function Chat() {
   };
 
   
-  const handleScroll = () => {
-    if (!scrollStop) {
-      const pixelsInput = document.getElementsByClassName("message_card")[document.getElementsByClassName("message_card").length - 1].getBoundingClientRect().y - 
-      (document.getElementsByClassName("message_card")[document.getElementsByClassName("message_card").length - 1].getBoundingClientRect().y * 90) / 100
-      setScrollPosition(pixelsInput);
-      setScrollStop(true);
-    }
-  };
-
   const messagesComponent = messages.slice(-18).map((message, index) => {
     return (
       <div key={message.id} className="message_card" style={index % 2 === 0 && index !== 0 ? {'backgroundColor': '#35487a'}:{'backgroundColor': '#2f406d'}} 
@@ -89,8 +78,7 @@ export default function Chat() {
     } else {
       return (
         <div>
-          <input className="input_chat" type="text" placeholder="Сообщение" value={inputValue} onChange={(event) => setInputValue(event.target.value)} onKeyDown={handleKeyDown} 
-          style={scrollPosition !== 0 ? {'position':'relative', 'top':scrollPosition, 'margin':'revert'}:{}}/>
+          <input className="input_chat" type="text" placeholder="Сообщение" value={inputValue} onChange={(event) => setInputValue(event.target.value)} onKeyDown={handleKeyDown} />
           <p className="users_paragraph">Пользователей на сайте - {countData}</p>
         </div>
       );
@@ -104,7 +92,7 @@ export default function Chat() {
 
   }
   return <div>
-    <div onWheel={handleScroll}>
+    <div>
       {messagesComponent}
     </div>
     {checkNameEmpty()}
