@@ -3,9 +3,11 @@ from flask_socketio import SocketIO
 from flask import Flask, request
 
 app = Flask(__name__)
+
 app.config['SECRET_KEY'] = 'secret!'
+
 CORS(app)
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode="eventlet")
 
 active_connections = {}
 
