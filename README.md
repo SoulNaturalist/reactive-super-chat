@@ -30,6 +30,7 @@ To set up the chat application locally, follow these steps:
 2. Navigate to the project directory: `cd reactive-super-chat`
 3. Install the required dependencies:
    - Backend:
+     - Navigate to the frontend directory: `cd backend`
      - Create a virtual environment (optional): `python -m venv venv`
      - Activate the virtual environment (optional):
        - For Windows: `venv\Scripts\activate`
