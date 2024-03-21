@@ -37,7 +37,8 @@ def on_request_data(data):
 @socketio.on('new_message')
 def on_message(data):
     message = data['message']
-    banwords = r.lrange('banwords', 0, -1)
+    banwords = [word.encode('utf-8', errors='ignore') for word in r.lrange('banwords', 0, -1)]
+    banwords = [word.decode('utf-8') for word in banwords]
     filtered = " ".join("".join(choice(symbols) for _ in range(len(word)))
                         if word in banwords else word for word in message.split(" "))
     messages.append({'nickname': data['nickname'], 'message': filtered})
