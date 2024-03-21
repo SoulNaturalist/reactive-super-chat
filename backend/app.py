@@ -1,8 +1,8 @@
+import redis
+from random import choice
 from flask_cors import CORS
 from flask_socketio import SocketIO
 from flask import Flask, request, jsonify
-import redis
-from random import choice
 
 app = Flask(__name__)
 
