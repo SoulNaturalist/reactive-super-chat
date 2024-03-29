@@ -1,6 +1,7 @@
 import Alert from '@mui/material/Alert';
 import { useState, useEffect, useRef } from 'react';
 import socketIOClient from "socket.io-client";
+//import useTransition from '../hooks/useTranslate';
 const soundAlert = require("../sounds/alert.mp3");
 // declaring an mp3 file did not help, I solve the problem as best I can :)
 
@@ -48,6 +49,8 @@ export default function Chat() {
       handleSubmit();
     }
   };
+  // const textProps = { text: "Пример текста для перевода" };
+  // const text = await useTransition(textProps);
 
   const settingThemeChat = () => {
     const themeChat = localStorage.getItem("theme");
@@ -76,7 +79,7 @@ export default function Chat() {
   
   const messagesComponent = messages.slice(-18).map((message, index) => {
     return (
-      <div key={message.id} className="message_card" style={index % 2 === 0 && index !== 0 ? 
+      <div key={index} className="message_card" style={index % 2 === 0 && index !== 0 ? 
       {'backgroundColor': settingThemeChat()['backgroundColor']}:{'backgroundColor': settingThemeChat()['backgroundColor2']}} ref={scrollDivRef}>
         <p className="message_paragraph" style={settingThemeChat()['backgroundColor'] === '#ffffff' ? {"color":"black"}:{}}>{message.nickname}: {message.message}</p>
       </div>
