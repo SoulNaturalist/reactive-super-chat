@@ -19,6 +19,8 @@ except redis.exceptions.ConnectionError:
     raise ConnectionRefusedError("Redis not started!")
 
 
+r = redis.Redis(host='localhost', port='6379', decode_responses=True)
+
 active_connections = {}
 
 messages = []
@@ -81,8 +83,6 @@ def translate(data):
     translator = Translator()
     text = data.get('text')
     socketio.emit('translate', {"text":translator.translate(text, src='ru', dest='en').text})
-
-    
 
 if __name__ == '__main__':
     socketio.run(app)
