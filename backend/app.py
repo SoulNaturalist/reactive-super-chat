@@ -5,6 +5,8 @@ from googletrans import Translator
 from flask_socketio import SocketIO
 from flask import Flask, request, jsonify
 
+PORT = 5000
+
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'secret!'
@@ -85,5 +87,6 @@ def translate(data):
     socketio.emit('translate', {"text":translator.translate(text, src='ru', dest='en').text})
 
 if __name__ == '__main__':
-    socketio.run(app)
+    print(f"Server started on {PORT} port!")
+    socketio.run(app, port=PORT)
 

@@ -5,7 +5,7 @@ interface propsHook {
     text: String
 }
 
-export default async function useTranslate(props: propsHook) {
+export default function useTranslate(props: propsHook): string {
     const { text } = props;
     const [textTraslate, setText] = React.useState("");
     React.useEffect(() => {

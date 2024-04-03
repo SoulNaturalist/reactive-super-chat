@@ -1,6 +1,6 @@
-import LoginForm from "./components/LoginForm";
-import Chat from "./components/Chat";
-import ChoiceTheme from "./components/ChoiceTheme";
+import LoginForm from "./pages/LoginForm";
+import Chat from "./pages/Chat";
+import ChoiceTheme from "./pages/ChoiceTheme";
 import "./App.css";
 import { Route } from "wouter";
 

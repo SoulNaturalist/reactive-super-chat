@@ -2,6 +2,8 @@ import Alert from '@mui/material/Alert';
 import { useState, useEffect, useRef } from 'react';
 import socketIOClient from "socket.io-client";
 //import useTransition from '../hooks/useTranslate';
+import InputEmoji from 'react-input-emoji';
+import {isMobile} from 'react-device-detect';
 const soundAlert = require("../sounds/alert.mp3");
 // declaring an mp3 file did not help, I solve the problem as best I can :)
 
@@ -73,11 +75,9 @@ export default function Chat() {
     const nickname = localStorage.getItem("nickname") || '{}';
     addMessage(nickname, inputValue)
     socket.emit("new_message", {nickname: nickname, message: inputValue});
-    setInputValue("");
+    setInputValue("")
   };
-
-  
-  const messagesComponent = messages.slice(-18).map((message, index) => {
+  const messagesComponent = messages.slice(isMobile ? -15:-18).map((message, index) => {
     return (
       <div key={index} className="message_card" style={index % 2 === 0 && index !== 0 ? 
       {'backgroundColor': settingThemeChat()['backgroundColor']}:{'backgroundColor': settingThemeChat()['backgroundColor2']}} ref={scrollDivRef}>
@@ -95,12 +95,19 @@ export default function Chat() {
         </div>
       );
     } else {
-      return (
-        <div>
-          <input className="input_chat" type="text" placeholder="Сообщение" value={inputValue} onChange={(event) => setInputValue(event.target.value)} onKeyDown={handleKeyDown} />
-          <p className="users_paragraph">Пользователей на сайте - {countData}</p>
-        </div>
-      );
+      return <div>
+        <br/>
+        <InputEmoji
+        value={inputValue}
+        onChange={setInputValue}
+        onEnter={(text: string) => setInputValue(text)}
+        onKeyDown={handleKeyDown}
+        placeholder="Type a message"
+        />
+        <p className="users_paragraph">Пользователей на сайте - {countData}</p>
+      </div>
+        
+
 
     }
   };
