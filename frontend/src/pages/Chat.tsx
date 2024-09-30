@@ -4,9 +4,8 @@ import socketIOClient from "socket.io-client";
 //import useTransition from '../hooks/useTranslate';
 import InputEmoji from 'react-input-emoji';
 import {isMobile} from 'react-device-detect';
-const soundAlert = require("../sounds/alert.mp3");
-// declaring an mp3 file did not help, I solve the problem as best I can :)
-
+import useTitle from '../hooks/useTitle';
+import React from 'react';
 
 export default function Chat() {
   const [inputValue, setInputValue] = useState("");
@@ -15,11 +14,10 @@ export default function Chat() {
   const [messages, setMessages] = useState<{ id: number, nickname: string; message: string }[]>([]);
   const nextId = useRef(1);
 
-
   useEffect(() => {
     const socket = socketIOClient("http://127.0.0.1:5000");
     socket.on("connect", () => {
-      const audio = new Audio(soundAlert);
+      const audio = new Audio('audio/alert.mp3');
       audio.play();
       console.log("Connected")
     });
@@ -97,13 +95,14 @@ export default function Chat() {
     } else {
       return <div>
         <br/>
-        <InputEmoji
-        value={inputValue}
-        onChange={setInputValue}
-        onEnter={(text: string) => setInputValue(text)}
-        onKeyDown={handleKeyDown}
-        placeholder="Type a message"
-        />
+        <div className='emoji-wrapper'>
+          <InputEmoji
+            value={inputValue}
+            onChange={setInputValue}
+            onEnter={(text: string) => setInputValue(text)}
+            onKeyDown={handleKeyDown}
+            placeholder="Введите сообщение" shouldReturn={false} shouldConvertEmojiToImage={false}          />
+        </div>
         <p className="users_paragraph">Пользователей на сайте - {countData}</p>
       </div>
         

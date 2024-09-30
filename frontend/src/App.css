@@ -96,6 +96,7 @@ button[type="submit"],
 input[type="button"],
 input[type="submit"] {
   -webkit-appearance: none;
+  appearance: none;
 }
 
 
@@ -220,4 +221,10 @@ button {
   position: relative;
   top:35px;
   color:#000000;
+}
+
+.emoji-wrapper {
+  position:fixed;
+  bottom:0px;
+  width:100%;
 }

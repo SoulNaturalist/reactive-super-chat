@@ -5,6 +5,7 @@ import { useCallback } from 'react';
 import { loadFull } from "tsparticles";
 import { useLocation } from "wouter";
 import { Engine } from "tsparticles-engine";
+import React from "react";
 
 
 
