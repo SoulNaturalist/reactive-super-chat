@@ -75,15 +75,19 @@ export default function Chat() {
     socket.emit("new_message", {nickname: nickname, message: inputValue});
     setInputValue("")
   };
+  const userBancheck = (n: string): boolean => {
+    const banString = localStorage.getItem("ban");
+    return banString !== null && JSON.stringify(JSON.parse(banString)).includes(n);
+  }
   const messagesComponent = messages.slice(isMobile ? -15:-18).map((message, index) => {
     return (
       <div key={index} className="message_card" style={index % 2 === 0 && index !== 0 ? 
-      {'backgroundColor': settingThemeChat()['backgroundColor']}:{'backgroundColor': settingThemeChat()['backgroundColor2']}} ref={scrollDivRef}>
+      {'backgroundColor': settingThemeChat()['backgroundColor'], display:userBancheck(message.nickname) ? "none":"block"}:
+      {'backgroundColor': settingThemeChat()['backgroundColor2'], display:userBancheck(message.nickname) ? "none":"block"}} ref={scrollDivRef}>
         <p className="message_paragraph" style={settingThemeChat()['backgroundColor'] === '#ffffff' ? {"color":"black"}:{}}>{message.nickname}: {message.message}</p>
       </div>
     );
   });
-
   const chatComponent = () => {
     if (!localStorage.hasOwnProperty('nickname') || localStorage.length === 0) {
       return (
